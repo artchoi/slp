@@ -1,0 +1,90 @@
+server:
+  port: 8088
+
+---
+
+spring:
+  profiles: default
+  cloud:
+    gateway:
+      routes:
+        - id: course
+          uri: http://localhost:8081
+          predicates:
+            - Path=/courses/**, /courses/**, 
+        - id: payment
+          uri: http://localhost:8082
+          predicates:
+            - Path=/payments/**, /payments/**, 
+        - id: lecture
+          uri: http://localhost:8083
+          predicates:
+            - Path=/lectures/**, /lectures/**, 
+        - id: certification
+          uri: http://localhost:8084
+          predicates:
+            - Path=/certifications/**, /certifications/**, 
+        - id: 학생
+          uri: http://localhost:8085
+          predicates:
+            - Path=, 
+        - id: frontend
+          uri: http://localhost:8080
+          predicates:
+            - Path=/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+    gateway:
+      routes:
+        - id: course
+          uri: http://course:8080
+          predicates:
+            - Path=/courses/**, /courses/**, 
+        - id: payment
+          uri: http://payment:8080
+          predicates:
+            - Path=/payments/**, /payments/**, 
+        - id: lecture
+          uri: http://lecture:8080
+          predicates:
+            - Path=/lectures/**, /lectures/**, 
+        - id: certification
+          uri: http://certification:8080
+          predicates:
+            - Path=/certifications/**, /certifications/**, 
+        - id: 학생
+          uri: http://학생:8080
+          predicates:
+            - Path=, 
+        - id: frontend
+          uri: http://frontend:8080
+          predicates:
+            - Path=/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+server:
+  port: 8080
